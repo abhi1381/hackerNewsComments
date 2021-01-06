@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     getCommentsObject(8863).then((data) => {
       setComObject(data);
-      localStorage.setItem("comments", JSON.stringify(comObject));
+      localStorage.setItem("comments", JSON.stringify(data));
     });
   }, []);
 
