@@ -17,7 +17,6 @@ function Reply({ id }) {
     let newReply = `<p>${newComment.text}</p>`;
 
     let replyParent = document.getElementById(`${id}`);
-    console.log(replyParent);
     let div = document.createElement("div");
     div.innerHTML = newReply;
     replyParent.appendChild(div);
@@ -30,7 +29,6 @@ function Reply({ id }) {
         minRows={4}
         defaultValue={text}
         onChange={(value) => {
-          console.log(value.target.value);
           setText(value.target.value);
         }}
         className={id}

@@ -4,7 +4,7 @@ export const baseUrl = "https://hacker-news.firebaseio.com/v0/item/";
 
 export default async function getCommentsObject(id) {
   let storyUrl = `${baseUrl}${id}.json?print=pretty`;
-  let result = await (await axios.get(storyUrl)).data;
+  let result = (await axios.get(storyUrl)).data;
 
   if ("kids" in result && result.kids.length > 0) {
     result.comments = [];
