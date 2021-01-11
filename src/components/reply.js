@@ -1,26 +1,25 @@
-import { Button} from "@material-ui/core";
-import React, { useState} from "react";
+import { Button } from "@material-ui/core";
+import React, { useState } from "react";
 import TextArea from "react-textarea-autosize";
+import Comment from "./comments";
 
 function Reply({ id }) {
   const [text, setText] = useState("");
+  const [newComment, setNewComment] = useState(null);
 
   const handlePostComment = async (e) => {
-    let newComment = {
+    const newComment = {
       id: Math.random() * 100,
       parent: id,
       by: "xyz",
       time: new Date().toUTCString(),
       text: text,
+      type: "comment",
+      comments: [],
     };
-
-    let newReply = `<p>${newComment.text}</p>`;
-
-    let replyParent = document.getElementById(`${id}`);
-    let div = document.createElement("div");
-    div.innerHTML = newReply;
-    replyParent.appendChild(div);
+    setNewComment(newComment);
   };
+
   return (
     <div style={{ padding: "5px" }}>
       <TextArea
@@ -37,6 +36,16 @@ function Reply({ id }) {
         <Button variant="outlined" onClick={handlePostComment}>
           COMMENT
         </Button>
+      </div>
+      <div>
+        {newComment !== null ? (
+          <Comment
+            key={newComment.id}
+            comment={newComment}
+            id={newComment.id}
+            type="child"
+          />
+        ) : null}
       </div>
     </div>
   );

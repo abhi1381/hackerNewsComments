@@ -3,16 +3,18 @@ import axios from "axios";
 export const baseUrl = "https://hacker-news.firebaseio.com/v0/item/";
 
 export default async function getCommentsObject(id) {
-  let storyUrl = `${baseUrl}${id}.json?print=pretty`;
-  let result = (await axios.get(storyUrl)).data;
+  const storyUrl = `${baseUrl}${id}.json?print=pretty`;
+  const result = (await axios.get(storyUrl)).data;
 
-  if ("kids" in result && result.kids.length > 0) {
-    result.comments = [];
-    for (let comId of result.kids) {
-      result.comments.push(await getCommentsObject(comId));
+  const resultCopy = {...result};
+
+  if ("kids" in resultCopy && resultCopy.kids.length > 0) {
+    resultCopy.comments = [];
+    for (let comId of resultCopy.kids) {
+      resultCopy.comments.push(await getCommentsObject(comId));
     }
   }
 
-  delete result.kids;
-  return result;
+  delete resultCopy.kids;
+  return resultCopy;
 }
