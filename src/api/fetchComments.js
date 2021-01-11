@@ -3,7 +3,7 @@ import axios from "axios";
 export const baseUrl = "https://hacker-news.firebaseio.com/v0/item/";
 
 export default async function getCommentsObject(id) {
-  const storyUrl = `${baseUrl}${id}.json?print=pretty`;
+  const storyUrl = `${baseUrl}${id}.json`;
   const result = (await axios.get(storyUrl)).data;
 
   const resultCopy = {...result};
